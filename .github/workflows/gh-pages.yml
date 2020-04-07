@@ -30,6 +30,8 @@ jobs:
 
       - run: yarn install
       - run: yarn generate
+        env:
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
