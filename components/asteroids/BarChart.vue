@@ -92,11 +92,7 @@ export default {
     },
     show: false,
     element_count: 0,
-    neos: {
-      '2020-05-06': ['test1', 'test2', 'test2'],
-      '2020-05-07': ['test1'],
-      '2020-05-08': ['test1', 'test2'],
-    },
+    neos: {},
   }),
   computed: {
     dateRangeText() {
@@ -104,7 +100,7 @@ export default {
     },
   },
   mounted() {
-    // this.getAsteroidsInWeek()
+    this.getNeoFeedByDate()
     this.drawBarChart(this.prepareBarChartData(this.neos))
   },
   methods: {
