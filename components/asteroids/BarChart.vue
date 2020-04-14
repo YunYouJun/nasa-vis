@@ -234,6 +234,8 @@ export default {
       if (this.isAllowedDate(this.start_date, this.end_date)) {
         await this.getNeoFeedByDate()
         this.updateBarChart()
+        d3.select('#pie-chart').remove()
+        this.drawPieChartByData()
       } else {
         this.snackbar = true
       }
@@ -451,7 +453,7 @@ export default {
       const svg = d3
         .select('#pie-chart-container')
         .append('svg')
-        .attr('id', 'bar-chart')
+        .attr('id', 'pie-chart')
         .attr('viewBox', [-width / 2, -height / 2, width, height])
         .attr('height', 500)
 
