@@ -44,9 +44,6 @@ import {
   mdiMenu,
   mdiApps,
   mdiChartBubble,
-  mdiLightbulbOutline,
-  mdiCircleOutline,
-  mdiStarOutline,
   mdiInvertColors,
   mdiEarth,
 } from '@mdi/js'
@@ -56,11 +53,6 @@ export default {
     return {
       svgPath: {
         mdiMenu,
-        mdiApps,
-        mdiChartBubble,
-        mdiLightbulbOutline,
-        mdiCircleOutline,
-        mdiStarOutline,
         mdiInvertColors,
       },
       clipped: false,

@@ -80,7 +80,9 @@ export default {
     //     },
     //   },
     // },
-    defaultAssets: false,
+    defaultAssets: {
+      icons: false,
+    },
   },
   /*
    ** Build configuration
