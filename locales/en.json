@@ -1,0 +1,29 @@
+{
+  "nasa-viz": "NASA-VIZ",
+  "YunYouJun": "YunYouJun",
+  "links": {
+    "home": "Home",
+    "asteroids": "Asteroids",
+    "about": "About"
+  },
+  "home": {
+    "title": "Welcome",
+    "api": "NASA Open APIs",
+    "bug-report": "Bug Report",
+    "continue": "continue",
+    "headline": "NASA API Visualization Project",
+    "introduction": "This is an introduction in English."
+  },
+  "asteroids": {
+    "start-date": "Start Date",
+    "end-date": "End Date",
+    "neo": "Near Earth Objects (Neo)",
+    "number-of-neos": "Number Of Neos",
+    "descending": "Descending",
+    "pie-of-neos-with-phas": "Pie Of Neos with PHAs"
+  },
+  "about": {
+    "title": "About",
+    "introduction": "This page is made to give you more informations."
+  }
+}

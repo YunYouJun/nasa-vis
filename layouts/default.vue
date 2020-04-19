@@ -24,6 +24,18 @@
       </v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase" v-text="title" />
       <v-spacer />
+      <v-btn
+        icon
+        :to="
+          $i18n.locale === 'en'
+            ? '/zh' + $route.fullPath
+            : $route.fullPath.replace(/^\/[^\/]+/, '')
+        "
+        exact
+        nuxt
+      >
+        <v-icon>{{ svgPath.mdiTranslate }}</v-icon>
+      </v-btn>
       <v-btn icon @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
         <v-icon>{{ svgPath.mdiInvertColors }}</v-icon>
       </v-btn>
@@ -46,6 +58,7 @@ import {
   mdiChartBubble,
   mdiInvertColors,
   mdiEarth,
+  mdiTranslate,
 } from '@mdi/js'
 import pkg from '~/package.json'
 export default {
@@ -54,32 +67,58 @@ export default {
       svgPath: {
         mdiMenu,
         mdiInvertColors,
+        mdiTranslate,
       },
       clipped: false,
       drawer: false,
       fixed: false,
-      items: [
+      // items: [
+      //   {
+      //     icon: mdiApps,
+      //     title: 'Welcome',
+      //     to: '/',
+      //   },
+      //   {
+      //     icon: mdiEarth,
+      //     title: 'Asteroids',
+      //     to: '/asteroids',
+      //   },
+      //   {
+      //     icon: mdiChartBubble,
+      //     title: 'About',
+      //     to: '/about',
+      //   },
+      // ],
+      right: true,
+      rightDrawer: false,
+    }
+  },
+  computed: {
+    title() {
+      return this.$t(pkg.name)
+    },
+    author() {
+      return this.$t(pkg.author)
+    },
+    items() {
+      return [
         {
           icon: mdiApps,
-          title: 'Welcome',
+          title: this.$t('links.home'),
           to: '/',
         },
         {
           icon: mdiEarth,
-          title: 'Asteroids',
+          title: this.$t('links.asteroids'),
           to: '/asteroids',
         },
         {
           icon: mdiChartBubble,
-          title: 'About',
+          title: this.$t('links.about'),
           to: '/about',
         },
-      ],
-      right: true,
-      rightDrawer: false,
-      title: pkg.name,
-      author: pkg.author,
-    }
+      ]
+    },
   },
 }
 </script>

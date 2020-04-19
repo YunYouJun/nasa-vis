@@ -1,0 +1,29 @@
+{
+  "nasa-viz": "NASA 数据可视化",
+  "YunYouJun": "云游君",
+  "links": {
+    "home": "主页",
+    "asteroids": "小行星",
+    "about": "关于"
+  },
+  "home": {
+    "title": "主页",
+    "headline": "NASA API 可视化",
+    "api": "NASA 开放 APIs",
+    "bug-report": "错误报告",
+    "continue": "一览",
+    "introduction": "This is an introduction in English."
+  },
+  "asteroids": {
+    "start-date": "开始日期",
+    "end-date": "结束日期",
+    "neo": "近地物体",
+    "number-of-neos": "近地物体数量",
+    "descending": "降序",
+    "pie-of-neos-with-phas": "饼图 - 潜在威胁天体"
+  },
+  "about": {
+    "title": "About",
+    "introduction": "This page is made to give you more informations."
+  }
+}

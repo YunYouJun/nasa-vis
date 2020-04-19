@@ -25,7 +25,8 @@
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-beta.0",
     "d3": "^5.15.1",
-    "nuxt": "^2.12.2"
+    "nuxt": "^2.12.2",
+    "vue-i18n": "^8.17.3"
   },
   "devDependencies": {
     "@mdi/js": "^5.0.45",

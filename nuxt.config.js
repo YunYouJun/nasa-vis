@@ -22,7 +22,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: 'cyan' },
   /*
    ** Global CSS
    */
@@ -30,7 +30,13 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/axios'],
+  router: {
+    middleware: 'i18n',
+  },
+  plugins: ['~/plugins/axios', '~/plugins/i18n.js'],
+  generate: {
+    routes: ['/', '/asteroids', '/zh', '/zh/asteroids'],
+  },
   /*
    ** Nuxt.js dev-modules
    */

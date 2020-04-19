@@ -15,7 +15,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   v-model="start_date"
-                  label="Start Date"
+                  :label="$t('asteroids.start-date')"
                   :prepend-icon="svgPaths.mdiCalendar"
                   readonly
                   dense
@@ -40,7 +40,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   v-model="end_date"
-                  label="End Date"
+                  :label="$t('asteroids.end-date')"
                   :prepend-icon="svgPaths.mdiCalendarRange"
                   readonly
                   dense
@@ -64,8 +64,8 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <v-card-title class="subtitle-1 py-1">
-            Near Earth Objects (Neo)
+          <v-card-title class="title py-1">
+            {{ $t('asteroids.neo') }}
           </v-card-title>
 
           <v-card-actions class="py-0">
@@ -137,12 +137,12 @@
       <v-col cols="12">
         <v-card :loading="loading">
           <v-card-title class="title">
-            Number Of Neos
+            {{ $t('asteroids.number-of-neos') }}
           </v-card-title>
           <v-card-text>
             <v-checkbox
               v-model="descending"
-              :label="`Descending`"
+              :label="$t('asteroids.descending')"
               :off-icon="svgPaths.mdiCheckboxBlankOutline"
               :on-icon="svgPaths.mdiCheckboxMarked"
               @click="updateBarChart"
@@ -154,7 +154,7 @@
       <v-col cols="12">
         <v-card :loading="loading">
           <v-card-title class="title">
-            Pie Of Neos with PHAs
+            {{ $t('asteroids.pie-of-neos-with-phas') }}
           </v-card-title>
           <v-card-text>
             <div id="pie-chart-container"></div>
@@ -209,7 +209,7 @@ export default {
     snackbar: false,
     tooltip: '由于 API 限制，开始日期与结束日期之差不能超过一周！',
     loading: false,
-    data: [
+    mockData: [
       { date: '2020-01-02', count: 22 },
       { date: '2020-25-29', count: 10 },
       { date: '2020-30-34', count: 39 },
@@ -234,8 +234,7 @@ export default {
       if (this.isAllowedDate(this.start_date, this.end_date)) {
         await this.getNeoFeedByDate()
         this.updateBarChart()
-        d3.select('#pie-chart').remove()
-        this.drawPieChartByData()
+        this.updatePieChart()
       } else {
         this.snackbar = true
       }
@@ -379,8 +378,13 @@ export default {
       })
     },
     updateBarChart() {
-      this.barChartData = this.prepareBarChartData(this.neos, this.descending)
-      this.barChart.update(this.barChartData)
+      if (Object.keys(this.neos).length !== 0) {
+        this.barChartData = this.prepareBarChartData(this.neos, this.descending)
+        this.barChart.update(this.barChartData)
+      }
+    },
+    updatePieChart() {
+      this.pieChart.update(this.barChartData)
     },
     prepareBarChartData(data, descending) {
       const dataArray = []
@@ -457,7 +461,7 @@ export default {
         .attr('viewBox', [-width / 2, -height / 2, width, height])
         .attr('height', 500)
 
-      svg
+      let neoPie = svg
         .append('g')
         .attr('stroke', 'white')
         .selectAll('path')
@@ -520,7 +524,40 @@ export default {
             .text((d) => d.data.PHAs)
         )
 
-      return svg.node()
+      return Object.assign(svg.node(), {
+        update(data) {
+          const t = svg.transition().duration(750)
+
+          neoPie = neoPie
+            .data(data, (d) => d.date)
+            .join(
+              (enter) =>
+                enter
+                  .append('g')
+                  .attr('stroke', 'white')
+                  .selectAll('path')
+                  .data(arcs)
+                  .join('path')
+                  .attr('fill', (d) => color(d.data.date))
+                  .attr('d', arc)
+                  .append('title')
+                  .text(
+                    (d) => `${d.data.date}: ${d.data.PHAs.toLocaleString()}`
+                  ),
+              (update) => update.attr('fill', (d) => color(d.count)),
+              (exit) =>
+                exit.call((neoPie) =>
+                  neoPie.transition().duration(600).remove().style('opacity', 0)
+                )
+            )
+            .call((neoPie) =>
+              neoPie
+                .transition(t)
+                .attr('fill', (d) => color(d.data.date))
+                .attr('d', arc)
+            )
+        },
+      })
     },
   },
 }
