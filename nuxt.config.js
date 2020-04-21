@@ -22,7 +22,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: 'cyan' },
+  loading: { color: '#105bd8' },
   /*
    ** Global CSS
    */
@@ -33,7 +33,7 @@ export default {
   router: {
     middleware: 'i18n',
   },
-  plugins: ['~/plugins/axios', '~/plugins/i18n.js'],
+  plugins: ['~/plugins/axios', '~/plugins/i18n.js', '~/plugins/leancloud.js'],
   generate: {
     routes: ['/', '/asteroids', '/zh', '/zh/asteroids'],
   },

@@ -1,4 +1,4 @@
-# nasa-viz
+# nasa-vis
 
 > NASA API Visualization
 

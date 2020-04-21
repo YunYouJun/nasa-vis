@@ -1,5 +1,5 @@
 {
-  "name": "nasa-viz",
+  "name": "nasa-vis",
   "version": "1.0.0",
   "description": "NASA API Visualization",
   "author": "YunYouJun",
@@ -9,7 +9,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "get": "node utils/getNeosByDate.js"
   },
   "lint-staged": {
     "*.{js,vue}": "yarn lint",
@@ -25,6 +26,8 @@
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-beta.0",
     "d3": "^5.15.1",
+    "dayjs": "^1.8.24",
+    "leancloud-storage": "^4.5.3",
     "nuxt": "^2.12.2",
     "vue-i18n": "^8.17.3"
   },

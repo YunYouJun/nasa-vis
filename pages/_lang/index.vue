@@ -19,18 +19,18 @@
               </v-list-item-content>
             </v-list-item>
             <v-list-item
-              href="https://github.com/YunYouJun/nasa-viz"
+              href="https://github.com/YunYouJun/nasa-vis"
               target="_blank"
             >
               <v-list-item-icon>
                 <v-icon>{{ svgPath.mdiGithub }}</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>NASA-VIZ GitHub</v-list-item-title>
+                <v-list-item-title>NASA-VIS GitHub</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
             <v-list-item
-              href="https://github.com/YunYouJun/nasa-viz/issues"
+              href="https://github.com/YunYouJun/nasa-vis/issues"
               target="_blank"
             >
               <v-list-item-icon>
