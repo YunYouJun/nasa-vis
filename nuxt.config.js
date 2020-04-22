@@ -35,7 +35,7 @@ export default {
   },
   plugins: ['~/plugins/axios', '~/plugins/i18n.js', '~/plugins/leancloud.js'],
   generate: {
-    routes: ['/', '/asteroids', '/zh', '/zh/asteroids'],
+    routes: ['/zh', '/zh/asteroids'],
   },
   /*
    ** Nuxt.js dev-modules
