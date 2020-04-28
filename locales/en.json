@@ -4,6 +4,7 @@
   "links": {
     "home": "Home",
     "asteroids": "Asteroids",
+    "epic": "EPIC",
     "about": "About"
   },
   "home": {
@@ -15,6 +16,7 @@
     "introduction": "This is an introduction in English."
   },
   "asteroids": {
+    "title": "Asteroids",
     "start-date": "Start Date",
     "end-date": "End Date",
     "neo": "Near Earth Objects (Neo)",
@@ -22,8 +24,11 @@
     "descending": "Descending",
     "pie-of-neos-with-phas": "Pie Of Neos with PHAs"
   },
+  "epic": {
+    "title": "EPIC"
+  },
   "about": {
     "title": "About",
-    "introduction": "This page is made to give you more informations."
+    "introduction": "Our journey is the sea of ​stars."
   }
 }

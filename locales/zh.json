@@ -4,6 +4,7 @@
   "links": {
     "home": "主页",
     "asteroids": "小行星",
+    "epic": "地球",
     "about": "关于"
   },
   "home": {
@@ -15,6 +16,7 @@
     "introduction": "This is an introduction in English."
   },
   "asteroids": {
+    "title": "小行星",
     "start-date": "开始日期",
     "end-date": "结束日期",
     "neo": "近地物体",
@@ -22,8 +24,11 @@
     "descending": "降序",
     "pie-of-neos-with-phas": "饼图 - 潜在威胁天体"
   },
+  "epic": {
+    "title": "地球多色成像相机"
+  },
   "about": {
     "title": "About",
-    "introduction": "This page is made to give you more informations."
+    "introduction": "我们的征途是星辰大海。"
   }
 }

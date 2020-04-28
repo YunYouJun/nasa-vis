@@ -3434,7 +3434,7 @@ d3-dispatch@1:
   resolved "https://registry.npm.taobao.org/d3-dispatch/download/d3-dispatch-1.0.6.tgz#00d37bcee4dd8cd97729dd893a0ac29caaba5d58"
   integrity sha1-ANN7zuTdjNl3Kd2JOgrCnKq6XVg=
 
-d3-drag@1:
+d3-drag@1, d3-drag@^1.2.1:
   version "1.2.5"
   resolved "https://registry.npm.taobao.org/d3-drag/download/d3-drag-1.2.5.tgz#2537f451acd39d31406677b7dc77c82f7d988f70"
   integrity sha1-JTf0UazTnTFAZne33HfIL32Yj3A=
@@ -3489,6 +3489,16 @@ d3-hierarchy@1:
   version "1.1.9"
   resolved "https://registry.npm.taobao.org/d3-hierarchy/download/d3-hierarchy-1.1.9.tgz#2f6bee24caaea43f8dc37545fa01628559647a83"
   integrity sha1-L2vuJMqupD+Nw3VF+gFihVlkeoM=
+
+d3-inertia@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npm.taobao.org/d3-inertia/download/d3-inertia-0.1.0.tgz#286724b4183c7e92f4c062fc1abab5feb2f3c504"
+  integrity sha1-KGcktBg8fpL0wGL8Grq1/rLzxQQ=
+  dependencies:
+    d3-drag "^1.2.1"
+    d3-selection "^1.1.0"
+    d3-timer "^1.0.7"
+    versor "^0.1"
 
 d3-interpolate@1:
   version "1.4.0"
@@ -3561,7 +3571,7 @@ d3-time@1:
   resolved "https://registry.npm.taobao.org/d3-time/download/d3-time-1.1.0.tgz#b1e19d307dae9c900b7e5b25ffc5dcc249a8a0f1"
   integrity sha1-seGdMH2unJALflsl/8XcwkmooPE=
 
-d3-timer@1:
+d3-timer@1, d3-timer@^1.0.7:
   version "1.0.10"
   resolved "https://registry.npm.taobao.org/d3-timer/download/d3-timer-1.0.10.tgz#dfe76b8a91748831b13b6d9c793ffbd508dd9de5"
   integrity sha1-3+dripF0iDGxO22ceT/71QjdneU=
@@ -9714,6 +9724,13 @@ toidentifier@1.0.0:
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
 
+topojson-client@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/topojson-client/download/topojson-client-3.1.0.tgz#22e8b1ed08a2b922feeb4af6f53b6ef09a467b99"
+  integrity sha1-Iuix7QiiuSL+60r29Ttu8JpGe5k=
+  dependencies:
+    commander "2"
+
 toposort@^1.0.0:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/toposort/-/toposort-1.0.7.tgz#2e68442d9f64ec720b8cc89e6443ac6caa950029"
@@ -10116,6 +10133,11 @@ vendors@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.4.tgz#e2b800a53e7a29b93506c3cf41100d16c4c4ad8e"
   integrity sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w==
+
+versor@^0.1, versor@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npm.taobao.org/versor/download/versor-0.1.2.tgz#0b145a22cd6376f222dace214ab1fd3b6369a8d9"
+  integrity sha1-CxRaIs1jdvIi2s4hSrH9O2NpqNk=
 
 vfile-location@^2.0.0:
   version "2.0.6"

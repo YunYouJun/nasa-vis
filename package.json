@@ -26,9 +26,12 @@
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-beta.0",
     "d3": "^5.15.1",
+    "d3-inertia": "^0.1.0",
     "dayjs": "^1.8.24",
     "leancloud-storage": "^4.5.3",
     "nuxt": "^2.12.2",
+    "topojson-client": "^3.1.0",
+    "versor": "^0.1.2",
     "vue-i18n": "^8.17.3"
   },
   "devDependencies": {

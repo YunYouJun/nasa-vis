@@ -45,7 +45,7 @@
         <nuxt />
       </v-container>
     </v-content>
-    <v-footer :fixed="fixed" app>
+    <v-footer>
       <span>&copy; 2020 {{ author }}</span>
     </v-footer>
   </v-app>
@@ -59,6 +59,7 @@ import {
   mdiInvertColors,
   mdiEarth,
   mdiTranslate,
+  mdiStarOutline,
 } from '@mdi/js'
 import pkg from '~/package.json'
 export default {
@@ -71,24 +72,6 @@ export default {
       },
       clipped: false,
       drawer: false,
-      fixed: false,
-      // items: [
-      //   {
-      //     icon: mdiApps,
-      //     title: 'Welcome',
-      //     to: '/',
-      //   },
-      //   {
-      //     icon: mdiEarth,
-      //     title: 'Asteroids',
-      //     to: '/asteroids',
-      //   },
-      //   {
-      //     icon: mdiChartBubble,
-      //     title: 'About',
-      //     to: '/about',
-      //   },
-      // ],
       right: true,
       rightDrawer: false,
     }
@@ -108,9 +91,14 @@ export default {
           to: '/',
         },
         {
-          icon: mdiEarth,
+          icon: mdiStarOutline,
           title: this.$t('links.asteroids'),
           to: '/asteroids',
+        },
+        {
+          icon: mdiEarth,
+          title: this.$t('links.epic'),
+          to: '/epic',
         },
         {
           icon: mdiChartBubble,

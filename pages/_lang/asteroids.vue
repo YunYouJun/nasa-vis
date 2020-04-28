@@ -186,15 +186,6 @@ export default {
       }
 
       this.loading = false
-
-      // if (this.firstSearch) {
-      //   this.firstSearch = false
-      //   await this.getNeoFeedByDate()
-      //   this.drawBarChartByData()
-      //   this.drawPieChartByData()
-      // } else {
-      //   this.updateBarChartByFeed()
-      // }
     },
     getDayFromString(string) {
       return parseInt(string.split('-')[2])
@@ -234,6 +225,9 @@ export default {
         return new Date(a.date) > new Date(b.date) ? -1 : 1
       })
     },
+  },
+  head() {
+    return { title: this.$t('asteroids.title') }
   },
 }
 </script>
