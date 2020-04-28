@@ -55,7 +55,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
+    ['@nuxtjs/dotenv', { systemvars: true }],
   ],
   /*
    ** Axios module configuration
