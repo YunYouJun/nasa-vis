@@ -2,8 +2,8 @@ import AV from 'leancloud-storage'
 
 // leancloud
 const config = {
-  appId: process.env.LEANCLOUD_APP_ID,
-  appKey: process.env.LEANCLOUD_APP_KEY,
+  appId: process.env.LEANCLOUD_APP_ID || '',
+  appKey: process.env.LEANCLOUD_APP_KEY || '',
 }
 
 if (process.env.LEANCLOUD_SERVER_URL) {

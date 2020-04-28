@@ -46,6 +46,8 @@ export default {
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
     '@nuxtjs/vuetify',
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    ['@nuxtjs/dotenv', { systemvars: true }],
   ],
   /*
    ** Nuxt.js modules
@@ -54,8 +56,6 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    ['@nuxtjs/dotenv', { systemvars: true }],
   ],
   /*
    ** Axios module configuration
