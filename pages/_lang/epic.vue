@@ -1,5 +1,6 @@
 <template>
   <v-card class="pa-2">
+    <v-switch v-model="color" label="With Color"></v-switch>
     <div id="map-container" class="text-center"></div>
   </v-card>
 </template>
@@ -13,23 +14,15 @@ const projection = d3.geoOrthographic()
 export default {
   data() {
     return {
+      color: false,
       width: 0,
       height: 0,
-      address: [
-        [116.3, 39.9],
-        [16.3, 39.9],
-        [86.3, 69.9],
-        [116.3, 79.9],
-        [6.3, 39.9],
-        [163, 60.9],
-        [136.3, -12.9],
-        [-136.3, 10.9],
-        [-136.3, -20.9],
-      ],
+      address: [],
       beijing: [116.3, 39.9],
     }
   },
   mounted() {
+    this.getTodayEPIC()
     this.height = this.getHeight()
     this.width = this.height
     this.drawChart()
@@ -37,13 +30,19 @@ export default {
   methods: {
     // refer d3-inertia demo
     // https://github.com/Fil/d3-inertia
-    drawCircle(ctx, pos) {
-      ctx.save()
-      ctx.beginPath()
-      ctx.arc(pos[0], pos[1], 6, 0, 2 * Math.PI)
-      ctx.fillStyle = '#f00'
-      ctx.fill()
-      ctx.restore()
+    getTodayEPIC() {
+      const date = new Date()
+      date.setDate(date.getDate() - 2)
+      const day = d3.timeFormat('%Y-%m-%d')(date)
+      this.$axios.$get('EPIC/api/natural/date/' + day).then((data) => {
+        data.forEach((d) => {
+          const coordinates = [
+            d.centroid_coordinates.lon,
+            d.centroid_coordinates.lat,
+          ]
+          this.address.push(coordinates)
+        })
+      })
     },
     drawChart() {
       const width = this.width
@@ -57,8 +56,69 @@ export default {
 
       const context = canvas.node().getContext('2d')
       const path = d3.geoPath().projection(projection).context(context)
+      const color = d3.scaleOrdinal(d3.schemePaired)
 
       let render = function () {}
+      d3.json(
+        'https://cdn.jsdelivr.net/npm/world-atlas@latest/world/110m.json'
+      ).then((world) => {
+        const land = topojson.feature(world, world.objects.land)
+        const countries = topojson.feature(world, world.objects.countries)
+          .features
+
+        projection.rotate([30, -30])
+
+        render = () => {
+          context.clearRect(0, 0, width, height)
+          context.fillStyle = 'black'
+
+          const graticule = d3.geoGraticule()
+          context.beginPath()
+          context.strokeStyle = 'rgba(0, 0, 0, 0.08)'
+          path(graticule())
+          context.stroke()
+
+          if (this.color) {
+            countries.forEach((country) => {
+              context.beginPath()
+              const curColor = d3.color(color(country.id))
+              curColor.opacity = 0.9
+              context.fillStyle = curColor + ''
+              path(country)
+              context.fill()
+            })
+          } else {
+            context.beginPath()
+            path(land)
+            context.fill()
+          }
+
+          // border
+          context.strokeStyle = 'black'
+          context.beginPath()
+          path({ type: 'Sphere' })
+          context.lineWidth = 1
+          context.strokeStyle = 'rgba(0, 0, 0, 0.08)'
+          context.stroke()
+
+          const p = projection.rotate().map((d) => Math.floor(10 * d) / 10)
+          context.fillText(`λ = ${p[0]}, φ = ${p[1]}, γ = ${p[2]}`, 10, 10)
+
+          // point
+          this.address.forEach((pos) => {
+            context.beginPath()
+            context.fillStyle = this.color ? 'black' : 'red'
+            path({
+              type: 'Feature',
+              geometry: { type: 'Point', coordinates: pos },
+            })
+            context.fill()
+          })
+        }
+
+        render()
+      })
+
       geoInertiaDrag(
         canvas,
         function () {
@@ -66,41 +126,6 @@ export default {
         },
         projection
       )
-
-      d3.json(
-        'https://cdn.jsdelivr.net/npm/world-atlas@latest/world/110m.json'
-      ).then((world) => {
-        const land = topojson.feature(world, world.objects.land)
-
-        render = () => {
-          context.clearRect(0, 0, width, height)
-
-          context.beginPath()
-          path(land)
-          context.fill()
-
-          context.strokeStyle = 'black'
-          context.beginPath()
-          path({ type: 'Sphere' })
-          context.lineWidth = 2.5
-          context.stroke()
-
-          const p = projection.rotate().map((d) => Math.floor(10 * d) / 10)
-          context.fillText(`λ = ${p[0]}, φ = ${p[1]}, γ = ${p[2]}`, 10, 10)
-
-          this.address.forEach((pos) => {
-            if (
-              pos[0] < -p[0] + 90 &&
-              pos[0] > -p[0] - 90 &&
-              pos[1] + p[1] < 90 &&
-              pos[1] + p[1] > -90
-            )
-              this.drawCircle(context, projection(pos))
-          })
-        }
-
-        render()
-      })
     },
     getHeight() {
       const width = 500
