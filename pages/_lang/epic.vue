@@ -1,8 +1,24 @@
 <template>
-  <v-card class="pa-2">
-    <v-switch v-model="color" label="With Color"></v-switch>
-    <div id="map-container" class="text-center"></div>
-  </v-card>
+  <v-row>
+    <v-col cols="12" md="3" class="text-center">
+      <v-date-picker
+        v-model="date"
+        :first-day-of-week="0"
+        :locale="this.$store.state.locale"
+        @change="getEpicByDate(date)"
+      ></v-date-picker>
+    </v-col>
+    <v-col cols="12" md="9" class="text-center">
+      <v-card class="pa-2">
+        <v-switch
+          v-model="colorful"
+          label="With Color"
+          @change="renderEarth"
+        ></v-switch>
+        <div id="map-container" class="text-center"></div>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -14,7 +30,8 @@ const projection = d3.geoOrthographic()
 export default {
   data() {
     return {
-      color: false,
+      date: null,
+      colorful: false,
       width: 0,
       height: 0,
       address: [],
@@ -22,19 +39,24 @@ export default {
     }
   },
   mounted() {
-    this.getTodayEPIC()
+    this.setDefaultDate()
     this.height = this.getHeight()
     this.width = this.height
     this.drawChart()
+    this.getEpicByDate(this.date)
   },
   methods: {
+    setDefaultDate() {
+      const date = new Date()
+      date.setDate(date.getDate() - 3)
+      const day = d3.timeFormat('%Y-%m-%d')(date)
+      this.date = day
+    },
     // refer d3-inertia demo
     // https://github.com/Fil/d3-inertia
-    getTodayEPIC() {
-      const date = new Date()
-      date.setDate(date.getDate() - 2)
-      const day = d3.timeFormat('%Y-%m-%d')(date)
-      this.$axios.$get('EPIC/api/natural/date/' + day).then((data) => {
+    getEpicByDate(date) {
+      this.$axios.$get('/EPIC/api/natural/date/' + date).then((data) => {
+        this.address = []
         data.forEach((d) => {
           const coordinates = [
             d.centroid_coordinates.lon,
@@ -42,6 +64,65 @@ export default {
           ]
           this.address.push(coordinates)
         })
+      })
+
+      this.renderEarth()
+    },
+    renderEarth() {
+      const width = this.width
+      const height = this.height
+
+      const land = this.land
+      const countries = this.countries
+
+      const context = this.context
+      const path = this.path
+
+      context.clearRect(0, 0, width, height)
+      context.fillStyle = 'black'
+
+      const graticule = d3.geoGraticule()
+      context.beginPath()
+      context.strokeStyle = 'rgba(0, 0, 0, 0.08)'
+      path(graticule())
+      context.stroke()
+
+      const colorScale = d3.scaleOrdinal(d3.schemePaired)
+      if (this.colorful) {
+        countries.forEach((country) => {
+          context.beginPath()
+          const curColor = d3.color(colorScale(country.id))
+          curColor.opacity = 0.9
+          context.fillStyle = curColor + ''
+          path(country)
+          context.fill()
+        })
+      } else {
+        context.beginPath()
+        path(land)
+        context.fill()
+      }
+
+      // border
+      context.strokeStyle = 'black'
+      context.beginPath()
+      path({ type: 'Sphere' })
+      context.lineWidth = 1
+      context.strokeStyle = 'rgba(0, 0, 0, 0.08)'
+      context.stroke()
+
+      const p = projection.rotate().map((d) => Math.floor(10 * d) / 10)
+      context.fillText(`λ = ${p[0]}, φ = ${p[1]}, γ = ${p[2]}`, 10, 10)
+
+      // point
+      this.address.forEach((pos) => {
+        context.beginPath()
+        context.fillStyle = this.colorful ? 'black' : 'red'
+        path({
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: pos },
+        })
+        context.fill()
       })
     },
     drawChart() {
@@ -56,7 +137,8 @@ export default {
 
       const context = canvas.node().getContext('2d')
       const path = d3.geoPath().projection(projection).context(context)
-      const color = d3.scaleOrdinal(d3.schemePaired)
+      this.context = context
+      this.path = path
 
       let render = function () {}
       d3.json(
@@ -65,55 +147,13 @@ export default {
         const land = topojson.feature(world, world.objects.land)
         const countries = topojson.feature(world, world.objects.countries)
           .features
+        this.land = land
+        this.countries = countries
 
         projection.rotate([30, -30])
 
         render = () => {
-          context.clearRect(0, 0, width, height)
-          context.fillStyle = 'black'
-
-          const graticule = d3.geoGraticule()
-          context.beginPath()
-          context.strokeStyle = 'rgba(0, 0, 0, 0.08)'
-          path(graticule())
-          context.stroke()
-
-          if (this.color) {
-            countries.forEach((country) => {
-              context.beginPath()
-              const curColor = d3.color(color(country.id))
-              curColor.opacity = 0.9
-              context.fillStyle = curColor + ''
-              path(country)
-              context.fill()
-            })
-          } else {
-            context.beginPath()
-            path(land)
-            context.fill()
-          }
-
-          // border
-          context.strokeStyle = 'black'
-          context.beginPath()
-          path({ type: 'Sphere' })
-          context.lineWidth = 1
-          context.strokeStyle = 'rgba(0, 0, 0, 0.08)'
-          context.stroke()
-
-          const p = projection.rotate().map((d) => Math.floor(10 * d) / 10)
-          context.fillText(`λ = ${p[0]}, φ = ${p[1]}, γ = ${p[2]}`, 10, 10)
-
-          // point
-          this.address.forEach((pos) => {
-            context.beginPath()
-            context.fillStyle = this.color ? 'black' : 'red'
-            path({
-              type: 'Feature',
-              geometry: { type: 'Point', coordinates: pos },
-            })
-            context.fill()
-          })
+          this.renderEarth()
         }
 
         render()
