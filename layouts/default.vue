@@ -60,6 +60,7 @@ import {
   mdiEarth,
   mdiTranslate,
   mdiStarOutline,
+  mdiRelationManyToMany,
 } from '@mdi/js'
 import pkg from '~/package.json'
 export default {
@@ -99,6 +100,11 @@ export default {
           icon: mdiEarth,
           title: this.$t('links.epic'),
           to: '/epic',
+        },
+        {
+          icon: mdiRelationManyToMany,
+          title: this.$t('links.relation'),
+          to: '/relation',
         },
         {
           icon: mdiChartBubble,
