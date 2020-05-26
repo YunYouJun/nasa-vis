@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <v-card>
-      <div id="force-container"></div>
-    </v-card>
-  </div>
+  <div id="disjoint-force-container"></div>
 </template>
 
 <script>
@@ -17,10 +13,7 @@ export default {
     const links = data.links.map((d) => Object.create(d))
     const nodes = data.nodes.map((d) => Object.create(d))
 
-    const color = () => {
-      const scale = d3.scaleOrdinal(d3.schemeCategory10)
-      return (d) => scale(d.group)
-    }
+    const color = d3.scaleOrdinal(d3.schemeCategory10)
 
     const drag = (simulation) => {
       function dragstarted(d) {
@@ -58,7 +51,7 @@ export default {
       .force('y', d3.forceY())
 
     const svg = d3
-      .select('#force-container')
+      .select('#disjoint-force-container')
       .append('svg')
       .attr('viewBox', [-width / 2, -height / 2, width, height])
 
@@ -79,7 +72,7 @@ export default {
       .data(nodes)
       .join('circle')
       .attr('r', 5)
-      .attr('fill', color)
+      .attr('fill', (d) => color(d.group))
       .call(drag(simulation))
 
     node.append('title').text((d) => d.id)

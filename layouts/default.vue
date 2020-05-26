@@ -103,8 +103,8 @@ export default {
         },
         {
           icon: mdiRelationManyToMany,
-          title: this.$t('links.relation'),
-          to: '/relation',
+          title: this.$t('links.relations'),
+          to: '/relations',
         },
         {
           icon: mdiChartBubble,

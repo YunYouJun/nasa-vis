@@ -1,0 +1,77 @@
+{
+  "nodes": [
+    { "id": "PLUTO", "name": "冥王星", "diameter": 2370, "group": 1 },
+    { "id": "NEPTUNE", "name": "海王星", "diameter": 49528, "group": 1 },
+    { "id": "URANUS", "name": "天王星", "diameter": 51118, "group": 1 },
+    { "id": "SATURN", "name": "土星", "diameter": 120536, "group": 1 },
+    { "id": "JUPITER", "name": "木星", "diameter": 142984, "group": 1 },
+    { "id": "MARS", "name": "火星", "diameter": 6792, "group": 1 },
+    { "id": "MOON", "name": "月球", "diameter": 3475, "group": 2 },
+    { "id": "EARTH", "name": "地球", "diameter": 12756, "group": 1 },
+    { "id": "VENUS", "name": "金星", "diameter": 12104, "group": 1 },
+    { "id": "MERCURY", "name": "水星", "diameter": 4879, "group": 1 },
+    { "id": "SUN", "name": "太阳", "diameter": 696340, "group": 1 }
+  ],
+  "links": [
+    {
+      "source": "PLUTO",
+      "target": "SUN",
+      "distance": 5906.4,
+      "orbit_velocity": 4.7
+    },
+    {
+      "source": "NEPTUNE",
+      "target": "SUN",
+      "distance": 4495.1,
+      "orbit_velocity": 5.4
+    },
+    {
+      "source": "URANUS",
+      "target": "SUN",
+      "distance": 2872.5,
+      "orbit_velocity": 6.8
+    },
+    {
+      "source": "SATURN",
+      "target": "SUN",
+      "distance": 1433.5,
+      "orbit_velocity": 9.7
+    },
+    {
+      "source": "JUPITER",
+      "target": "SUN",
+      "distance": 778.6,
+      "orbit_velocity": 13.1
+    },
+    {
+      "source": "MARS",
+      "target": "SUN",
+      "distance": 227.9,
+      "orbit_velocity": 24.1
+    },
+    {
+      "source": "EARTH",
+      "target": "SUN",
+      "distance": 149.6,
+      "orbit_velocity": 1.0
+    },
+    {
+      "source": "VENUS",
+      "target": "SUN",
+      "distance": 108.2,
+      "orbit_velocity": 29.8
+    },
+    {
+      "source": "MERCURY",
+      "target": "SUN",
+      "distance": 57.9,
+      "orbit_velocity": 35.0
+    },
+    {
+      "source": "MOON",
+      "target": "EARTH",
+      "distance": 0.384,
+      "orbit_velocity": 47.4
+    }
+  ]
+}
