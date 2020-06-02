@@ -10,6 +10,9 @@
       <v-col cols="12" md="6">
         <v-card><solar-system></solar-system></v-card>
       </v-col>
+      <v-col cols="12" md="6">
+        <v-card><solar-system-image></solar-system-image></v-card>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -18,11 +21,13 @@
 import DisjointGraph from '~/components/relations/DisjointGraph'
 import RelationGraph from '~/components/relations/RealtionGraph'
 import SolarSystem from '~/components/relations/SolarSystem'
+import SolarSystemImage from '~/components/relations/SolarSystemImage'
 export default {
   components: {
     DisjointGraph,
     RelationGraph,
     SolarSystem,
+    SolarSystemImage,
   },
 }
 </script>
